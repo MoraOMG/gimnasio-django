@@ -1,0 +1,36 @@
+{% extends "planes/base.html" %}
+{% block titulo %}Inicio · PowerFit Gym{% endblock %}
+{% block contenido %}
+<div class="hero p-5 mb-4">
+  <h1 class="display-5 fw-bold">Gestión de Planes de Entrenamiento</h1>
+  <p class="lead mb-4">Administra los planes que ofrece el gimnasio: crea, consulta, modifica y elimina.</p>
+  <a href="{% url 'planes:lista' %}" class="btn btn-light btn-lg me-2">Ver planes</a>
+  <a href="{% url 'planes:crear' %}" class="btn btn-outline-light btn-lg">+ Nuevo plan</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <div class="card p-4 text-center"><div class="display-6 fw-bold">{{ total }}</div><div class="text-muted">Planes registrados</div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-4 text-center"><div class="display-6 fw-bold text-success">{{ activos }}</div><div class="text-muted">Planes activos</div></div>
+  </div>
+</div>
+
+<h4 class="mb-3">Últimos planes agregados</h4>
+<div class="row g-3">
+  {% for plan in ultimos %}
+    <div class="col-md-4">
+      <div class="card h-100"><div class="card-body">
+        <h5 class="card-title">{{ plan.nombre }}</h5>
+        <span class="badge text-bg-dark">{{ plan.get_nivel_display }}</span>
+        <span class="badge text-bg-danger">{{ plan.get_objetivo_display }}</span>
+        <p class="card-text mt-2 text-muted">{{ plan.descripcion|truncatechars:90 }}</p>
+        <p class="fw-bold mb-0">${{ plan.precio|floatformat:0 }}</p>
+      </div></div>
+    </div>
+  {% empty %}
+    <p class="text-muted">Aún no hay planes. ¡Crea el primero!</p>
+  {% endfor %}
+</div>
+{% endblock %}

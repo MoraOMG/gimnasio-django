@@ -1,0 +1,18 @@
+{% extends "planes/base.html" %}
+{% block titulo %}Nuevo plan · PowerFit Gym{% endblock %}
+{% block contenido %}
+<div class="row justify-content-center"><div class="col-lg-9">
+  <div class="card"><div class="card-body p-4">
+    <h2 class="mb-1">Crear plan de entrenamiento</h2>
+    <p class="text-muted">Completa todos los campos. El plan se crea como <strong>activo</strong>.</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include "planes/_campos.html" %}
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Guardar plan</button>
+        <a href="{% url 'planes:lista' %}" class="btn btn-outline-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div></div>
+</div></div>
+{% endblock %}
